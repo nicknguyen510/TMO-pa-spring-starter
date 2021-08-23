@@ -11,13 +11,13 @@ public class Book {
 	private @Id @GeneratedValue Long id;
 	private String author;
 	private String title;
-	private String yearPublished;
+	private Long yearPublished;
 	
 	Book(){
 		
 	}
 	
-	Book(String author, String title, String yearPublished){
+	Book(String author, String title, Long yearPublished){
 		this.author = author;
 		this.title = title;
 		this.yearPublished = yearPublished;
@@ -35,7 +35,7 @@ public class Book {
 		return title;
 	}
 	
-	public String getYearPublished() {
+	public Long getYearPublished() {
 		return yearPublished;
 	}
 	
