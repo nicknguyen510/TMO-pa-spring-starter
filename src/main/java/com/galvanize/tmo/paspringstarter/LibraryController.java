@@ -22,18 +22,18 @@ public class LibraryController {
 
     }
     
-    @GetMapping("api/books")
+    @GetMapping("/api/books")
     List<Book> all(){
     	return repo.findAll(Sort.by("title").ascending());
     }
     
-    @PostMapping("api/books")
+    @PostMapping("/api/books")
     Book newBook(@RequestBody Book newBook) {
     	return repo.save(newBook);
     }
     
     
-    @DeleteMapping("api/books")
+    @DeleteMapping("/api/books")
     void deleteAll() {
     	repo.deleteAll();
     }
