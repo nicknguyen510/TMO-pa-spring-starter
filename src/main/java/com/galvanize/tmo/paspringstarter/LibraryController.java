@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -19,11 +15,13 @@ import org.springframework.http.ResponseEntity;
 @RestController
 public class LibraryController {
 	
-	private final LibraryRepository repo;
-	
-	LibraryController(LibraryRepository repo){
-		this.repo = repo;
+	private Integer count = 0;
+	private Books library;
+	LibraryController() {
+		library = new Books();
 	}
+	
+
 
     @GetMapping("/health")
     public void health() {
@@ -32,25 +30,24 @@ public class LibraryController {
     
     @GetMapping("/api/books")
     public Books all(){
-    	return new Books(repo.findAll(Sort.by("title").ascending()));
+    	return library;
     }
     
     @PostMapping("/api/books")
     ResponseEntity<Book> newBook(@RequestBody Book book) {
-    	repo.save(book);
+    	book.setID(count++);
+    	library.books.add(book);
     	return new ResponseEntity<Book>(book, HttpStatus.CREATED);
     }
     
-    @PersistenceContext
-    EntityManager entityManager;
- 
    
     
     @DeleteMapping("/api/books")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteAll() {
     	
-    	entityManager.createNativeQuery("ALTER TABLE table AUTO_INCREMENT = 1").executeUpdate();
-    	repo.deleteAll();
+    	count = 0;
+    	library.books.clear();
+    	
     }
 }
