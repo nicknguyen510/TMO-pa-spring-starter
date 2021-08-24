@@ -17,8 +17,11 @@ public class LibraryController {
 	
 	private final LibraryRepository repo;
 	
-	LibraryController(LibraryRepository repo){
+	private final Books bookList;
+	
+	LibraryController(LibraryRepository repo, Books bookList){
 		this.repo = repo;
+		this.bookList = bookList;
 	}
 
     @GetMapping("/health")
@@ -27,8 +30,9 @@ public class LibraryController {
     }
     
     @GetMapping("/api/books")
-    List<Book> all(){
-    	return repo.findAll(Sort.by("title").ascending());
+    Books all(){
+    	bookList.books = repo.findAll(Sort.by("title").ascending());
+    	return bookList;
     }
     
     @PostMapping("/api/books")
