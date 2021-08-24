@@ -1,16 +1,14 @@
 package com.galvanize.tmo.paspringstarter;
 
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 public class Book {
 	
-	private @Id Integer id;
-	private static final AtomicInteger count = new AtomicInteger(0);
+	private @Id Long id;
+	private static Long count = 0;
 	private String author;
 	private String title;
 	private Long yearPublished;
@@ -23,11 +21,15 @@ public class Book {
 		this.author = author;
 		this.title = title;
 		this.yearPublished = yearPublished;
-		this.id = count.incrementAndGet();
+		setId(count++);
 	}
 	
-	public Integer getID() {
+	public Long getID() {
 		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	public String getAuthor() {

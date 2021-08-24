@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+
 
 @RestController
 public class LibraryController {
@@ -29,7 +29,6 @@ public class LibraryController {
     @GetMapping("/api/books")
     public Books all(){
     	return new Books(repo.findAll(Sort.by("title").ascending()));
-    	
     }
     
     @PostMapping("/api/books")
