@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -19,11 +20,9 @@ import org.springframework.http.ResponseEntity;
 public class LibraryController {
 	
 	private final LibraryRepository repo;
-	private final EntityManager entityManager;
 	
-	LibraryController(LibraryRepository repo, EntityManager entityManager){
+	LibraryController(LibraryRepository repo){
 		this.repo = repo;
-		this.entityManager = entityManager;
 	}
 
     @GetMapping("/health")
@@ -42,11 +41,15 @@ public class LibraryController {
     	return new ResponseEntity<Book>(book, HttpStatus.CREATED);
     }
     
+    @PersistenceContext
+    EntityManager entityManager;
  
+   
     
     @DeleteMapping("/api/books")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteAll() {
+    	
     	entityManager.createNativeQuery("ALTER TABLE table AUTO_INCREMENT = 1").executeUpdate();
     	repo.deleteAll();
     }
