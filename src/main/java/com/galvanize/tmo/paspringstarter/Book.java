@@ -3,12 +3,13 @@ package com.galvanize.tmo.paspringstarter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Book {
 	
-	private @Id @GeneratedValue Long id;
+	private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
 	private String author;
 	private String title;
 	private Long yearPublished;
