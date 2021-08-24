@@ -41,6 +41,6 @@ public class LibraryController {
     @DeleteMapping("/api/books")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteAll() {
-    	repo.deleteAll();
+    	repo.deleteAllInBatch();
     }
 }
