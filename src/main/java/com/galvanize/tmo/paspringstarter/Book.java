@@ -7,8 +7,8 @@ import javax.persistence.Id;
 @Entity
 public class Book {
 	
-	private @Id Long id;
-	private static Long count = 0;
+	private @Id Integer id;
+	private static Integer count = 0;
 	private String author;
 	private String title;
 	private Long yearPublished;
@@ -24,11 +24,11 @@ public class Book {
 		setId(count++);
 	}
 	
-	public Long getID() {
+	public Integer getID() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
