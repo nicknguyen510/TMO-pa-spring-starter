@@ -34,17 +34,17 @@ public class LibraryController {
     }
     
     @PostMapping("/api/books")
-    ResponseEntity<Book> newBook(@RequestBody Book book) {
+    public void newBook(@RequestBody Book book) {
     	book.setID(count++);
     	library.books.add(book);
-    	return new ResponseEntity<Book>(book, HttpStatus.CREATED);
+
     }
     
    
     
     @DeleteMapping("/api/books")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteAll() {
+    public void deleteAll() {
     	
     	count = 0;
     	library.books.clear();
